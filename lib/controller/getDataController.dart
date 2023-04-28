@@ -11,7 +11,7 @@ class GetDataController extends GetxController {
     isLoading.value = true;
     try {
       var response = await Dio().get(
-          'http://192.168.2.43:80/api_hp/controller/harrypotter.php?op=listar');
+          'https://devzamora.com/api_hp/controller/harrypotter.php?op=listar');
       final datax = json.decode(response.data);
       getDataModel.value = GetDataModel.fromJson(datax);
       isLoading.value = false;
