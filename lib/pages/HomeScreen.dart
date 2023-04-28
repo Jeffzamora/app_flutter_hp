@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2, childAspectRatio: 1.4),
-                            itemCount: 160,
+                            itemCount: 25,
                             shrinkWrap: true,
                             physics: BouncingScrollPhysics(),
                             itemBuilder: (context, index) {
@@ -56,13 +56,42 @@ class _HomeScreenState extends State<HomeScreen> {
                                           borderRadius: BorderRadius.all(
                                             Radius.circular(25),
                                           ),
-                                          color: Colors.amber),
+                                          color: getDataController
+                                                      .getDataModel
+                                                      .value
+                                                      .results[index]
+                                                      .hpCasa ==
+                                                  "Gryffindor"
+                                              ? Colors.redAccent
+                                              : getDataController
+                                                          .getDataModel
+                                                          .value
+                                                          .results[index]
+                                                          .hpCasa ==
+                                                      "Ravenclaw"
+                                                  ? Colors.blue
+                                                  : getDataController
+                                                              .getDataModel
+                                                              .value
+                                                              .results[index]
+                                                              .hpCasa ==
+                                                          "Slytherin"
+                                                      ? Colors.green
+                                                      : getDataController
+                                                                  .getDataModel
+                                                                  .value
+                                                                  .results[
+                                                                      index]
+                                                                  .hpCasa ==
+                                                              "Hufflepuff"
+                                                          ? Colors.yellow
+                                                          : Colors.grey),
                                       child: Stack(
                                         children: [
                                           _ImagenSombrero(),
                                           _ImagenPersonaje(index),
-                                          _NombrePersonaje(),
-                                          _CasaPersonaje(),
+                                          _NombrePersonaje(index),
+                                          _CasaPersonaje(index),
                                         ],
                                       ),
                                     ),
@@ -73,6 +102,50 @@ class _HomeScreenState extends State<HomeScreen> {
                                       MaterialPageRoute(
                                         builder: (_) => DetailsScreen(
                                           herotag: index,
+                                          Whpnom: getDataController.getDataModel
+                                              .value.results[index].hpName,
+                                          Whpcasa: getDataController
+                                              .getDataModel
+                                              .value
+                                              .results[index]
+                                              .hpCasa,
+                                          Whpapodo: getDataController
+                                              .getDataModel
+                                              .value
+                                              .results[index]
+                                              .hpApodo,
+                                          Whpimg: getDataController.getDataModel
+                                              .value.results[index].hpImage,
+                                          Whpespecie: getDataController
+                                              .getDataModel
+                                              .value
+                                              .results[index]
+                                              .hpEscpecie,
+                                          Whpgenero: getDataController
+                                              .getDataModel
+                                              .value
+                                              .results[index]
+                                              .hpGenero,
+                                          Whpbord: getDataController
+                                              .getDataModel
+                                              .value
+                                              .results[index]
+                                              .hpBord,
+                                          Whpsangre: getDataController
+                                              .getDataModel
+                                              .value
+                                              .results[index]
+                                              .hpSangre,
+                                          Whpbarita: getDataController
+                                              .getDataModel
+                                              .value
+                                              .results[index]
+                                              .hpBarita,
+                                          Whppatronus: getDataController
+                                              .getDataModel
+                                              .value
+                                              .results[index]
+                                              .hpPatronus,
                                         ),
                                       ),
                                     );
@@ -96,8 +169,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _ImagenFondo() {
     return Positioned(
-      top: -50,
-      right: -50,
+      top: 9,
+      right: 1,
       child: Image.asset('images/barita.png', fit: BoxFit.fitWidth, width: 200),
     );
   }
@@ -118,12 +191,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _ImagenSombrero() {
     return Positioned(
-      bottom: 2,
-      right: 1,
+      bottom: -9,
+      right: -10,
       child: Image.asset(
         'images/barita.png',
         fit: BoxFit.fitHeight,
-        height: 80,
+        height: 100,
       ),
     );
   }
@@ -135,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Hero(
         tag: index,
         child: CachedNetworkImage(
-          imageUrl: 'https://ik.imagekit.io/hpapi/harry.jpg',
+          imageUrl: getDataController.getDataModel.value.results[index].hpImage,
           height: 60,
           fit: BoxFit.fitHeight,
           placeholder: (context, url) => Center(
@@ -146,28 +219,29 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _NombrePersonaje() {
+  Widget _NombrePersonaje(index) {
     return Positioned(
       top: 8,
       right: 15,
       child: Text(
-        'Gender',
+        getDataController.getDataModel.value.results[index].hpName,
         style: TextStyle(
             fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),
       ),
     );
   }
 
-  Widget _CasaPersonaje() {
+  Widget _CasaPersonaje(index) {
     return Positioned(
-      top: 55,
+      top: 30,
       right: 10,
       child: Container(
         child: Padding(
           padding:
               const EdgeInsets.only(right: 5, left: 20, top: 20, bottom: 15),
           child: Text(
-            'Grfindor',
+            getDataController.getDataModel.value.results[index].hpCasa
+                .toString(),
             style: TextStyle(color: Colors.white, shadows: [
               BoxShadow(
                 color: Colors.orange,
@@ -177,10 +251,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(5),
-          ),
           color: Colors.black.withOpacity(0.5),
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
         ),
       ),
     );

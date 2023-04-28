@@ -3,7 +3,30 @@ import 'package:flutter/material.dart';
 
 class DetailsScreen extends StatefulWidget {
   final herotag;
-  const DetailsScreen({super.key, this.herotag});
+  final Whpnom;
+  final Whpcasa;
+  final Whpapodo;
+  final Whpimg;
+  final Whpespecie;
+  final Whpgenero;
+  final Whpbord;
+  final Whpsangre;
+  final Whpbarita;
+  final Whppatronus;
+
+  const DetailsScreen(
+      {super.key,
+      this.herotag,
+      this.Whpnom,
+      this.Whpapodo,
+      this.Whpcasa,
+      this.Whpimg,
+      this.Whpespecie,
+      this.Whpgenero,
+      this.Whpbord,
+      this.Whpsangre,
+      this.Whpbarita,
+      this.Whppatronus});
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
@@ -15,7 +38,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.orangeAccent,
+      backgroundColor: widget.Whpcasa == "Gryffindor"
+          ? Colors.redAccent
+          : widget.Whpcasa == "Ravenclaw"
+              ? Colors.blue
+              : widget.Whpcasa == "Slytherin"
+                  ? Colors.green
+                  : widget.Whpcasa == "Hufflepuff"
+                      ? Colors.yellow
+                      : Colors.grey,
       body: Stack(
         alignment: Alignment.center,
         children: [
@@ -49,13 +80,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           Container(
                             width: width * 0.3,
                             child: Text(
-                              "TEST",
+                              "ESPECIE:",
                               style: TextStyle(fontSize: 18),
                             ),
                           ),
                           Container(
                             child: Text(
-                              "ALTURA",
+                              widget.Whpespecie.toString(),
                               style: TextStyle(fontSize: 18),
                             ),
                           )
@@ -69,13 +100,93 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           Container(
                             width: width * 0.3,
                             child: Text(
-                              "Prueba",
+                              "GENERO:",
                               style: TextStyle(fontSize: 18),
                             ),
                           ),
                           Container(
                             child: Text(
-                              "565656",
+                              widget.Whpgenero.toString(),
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: width * 0.3,
+                            child: Text(
+                              "NACIMIENTO:",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                          Container(
+                            child: Text(
+                              widget.Whpbord.toString(),
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: width * 0.3,
+                            child: Text(
+                              "SANGRE:",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                          Container(
+                            child: Text(
+                              widget.Whpsangre.toString(),
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: width * 0.3,
+                            child: Text(
+                              "BARITA:",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                          Container(
+                            child: Text(
+                              widget.Whpbarita.toString(),
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: width * 0.3,
+                            child: Text(
+                              "PATRONUS:",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                          ),
+                          Container(
+                            child: Text(
+                              widget.Whppatronus.toString(),
                               style: TextStyle(fontSize: 18),
                             ),
                           )
@@ -92,7 +203,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             child: Hero(
               tag: widget.herotag,
               child: CachedNetworkImage(
-                imageUrl: 'https://ik.imagekit.io/hpapi/harry.jpg',
+                imageUrl: widget.Whpimg,
                 height: 200,
                 width: 200,
                 fit: BoxFit.cover,
@@ -130,7 +241,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Nombre",
+            widget.Whpnom.toString(),
             style: TextStyle(
               color: Colors.white,
               fontSize: 30,
@@ -138,7 +249,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
             ),
           ),
           Text(
-            "Coquito",
+            widget.Whpapodo.toString(),
             style: TextStyle(
               color: Colors.white,
               fontSize: 20,
@@ -158,7 +269,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         child: Padding(
           padding: const EdgeInsets.all(0.8),
           child: Text(
-            "Grifindor",
+            widget.Whpcasa.toString(),
             style: TextStyle(color: Colors.white, fontSize: 15),
           ),
         ),
