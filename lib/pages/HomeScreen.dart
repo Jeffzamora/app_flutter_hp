@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2, childAspectRatio: 1.4),
-                            itemCount: 25,
+                            itemCount: 350,
                             shrinkWrap: true,
                             physics: BouncingScrollPhysics(),
                             itemBuilder: (context, index) {
@@ -207,14 +207,22 @@ class _HomeScreenState extends State<HomeScreen> {
       left: 5,
       child: Hero(
         tag: index,
-        child: CachedNetworkImage(
-          imageUrl: getDataController.getDataModel.value.results[index].hpImage,
-          height: 60,
-          fit: BoxFit.fitHeight,
-          placeholder: (context, url) => Center(
-            child: CircularProgressIndicator(),
-          ),
-        ),
+        child: getDataController
+                .getDataModel.value.results[index].hpImage.isNotEmpty
+            ? CachedNetworkImage(
+                imageUrl:
+                    getDataController.getDataModel.value.results[index].hpImage,
+                height: 60,
+                fit: BoxFit.fitHeight,
+                placeholder: (context, url) => Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : Image.asset(
+                'images/notfound.png',
+                fit: BoxFit.fitHeight,
+                height: 50,
+              ),
       ),
     );
   }
@@ -239,16 +247,27 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Padding(
           padding:
               const EdgeInsets.only(right: 5, left: 20, top: 20, bottom: 15),
-          child: Text(
-            getDataController.getDataModel.value.results[index].hpCasa
-                .toString(),
-            style: TextStyle(color: Colors.white, shadows: [
-              BoxShadow(
-                color: Colors.orange,
-                offset: Offset(0, 0),
-              ),
-            ]),
-          ),
+          child: getDataController
+                  .getDataModel.value.results[index].hpCasa.isNotEmpty
+              ? Text(
+                  getDataController.getDataModel.value.results[index].hpCasa
+                      .toString(),
+                  style: TextStyle(color: Colors.white, shadows: [
+                    BoxShadow(
+                      color: Colors.orange,
+                      offset: Offset(0, 0),
+                    ),
+                  ]),
+                )
+              : Text(
+                  'NINGUNO',
+                  style: TextStyle(color: Colors.white, shadows: [
+                    BoxShadow(
+                      color: Colors.orange,
+                      offset: Offset(0, 0),
+                    ),
+                  ]),
+                ),
         ),
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(0.5),
